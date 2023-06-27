@@ -125,9 +125,9 @@ local plugins = {
 
             local function get_cmd()
                 local jdtls_path = get_package_install_path('jdtls')
-
+                local java_home = os.getenv "JAVA_HOME"
                 return {
-                    home .. '/.asdf/installs/java/corretto-17.0.4.9.1/bin/java', -- jdk used for LSP Server
+                    java_home .. '/bin/java', -- jdk used for LSP Server
                     '-Declipse.application=org.eclipse.jdt.ls.core.id1',
                     '-Dosgi.bundles.defaultStartLevel=4',
                     '-Declipse.product=org.eclipse.jdt.ls.core.product',
