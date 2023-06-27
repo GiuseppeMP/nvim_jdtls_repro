@@ -26,6 +26,49 @@ vim.opt.runtimepath:prepend(lazypath)
 local plugins = {
     "folke/tokyonight.nvim",
     {
+        "ibhagwan/fzf-lua",
+        config = function()
+            require('fzf-lua').setup({
+                keymap = {
+                    builtin = {
+                        -- for builtin previewer
+                        ["<C-d>"] = "preview-page-down",
+                        ["<C-u>"] = "preview-page-up",
+                    },
+                    fzf = {
+                        -- for fzf application
+                        ["enter"] = "accept",
+                        ["ctrl-a"] = "toggle-all",
+                        ["tab"] = "toggle+down",
+                        ["shift-tab"] = "toggle+up",
+                        -- for external fzf previewers
+                        -- ["<C-u>"] = "preview-page-up",
+                        -- ["<C-d>"] = "preview-page-down",
+                    },
+                },
+                files = {
+                    show_cwd_header = true
+                },
+                buffers = {
+                    show_cwd_header = true,
+                    ignore_current_buffer = true,
+                },
+                git = {
+                    show_cwd_header = true,
+                },
+                lsp = {
+                    symbols = {
+                        symbol_style = 1,
+                        -- filter symbol types like class
+                        -- function, interface, struct etc
+                        regex_filter = "%[([SCMFDI].*)%].*",
+                    },
+                },
+            })
+            vim.keymap.set("n", "<c-P>", "<cmd>lua require('fzf-lua').files()<CR>", { silent = true })
+        end
+    },
+    {
         'williamboman/mason.nvim',
         dependencies = { 'WhoIsSethDaniel/mason-tool-installer.nvim' },
         config = function()
